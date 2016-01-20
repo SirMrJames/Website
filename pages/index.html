@@ -1,14 +1,13 @@
-
 <!doctype html>
 <html>
   <head>
-  <title>James' Website</title>
+  <title>James Project Site</title>
     <link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/projects/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="file:///Users/JamesSalehi/Documents/Website/css/main.css">
-    <script type="text/javascript" src="file:///Users/JamesSalehi/Documents/Website/js/vendor/angular.min.js"></script>
+    <link rel="stylesheet" href="main.css">
+   
   </head>
-  <body ng-app='project'>
+  <body ng-app="WebApp">
 
   <div class ="upper">
 
@@ -16,53 +15,32 @@
       <div class="container">
        <ul class="nav nav-pills">
         <li><a href="#" class="active">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Resume</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/RESUME.pdf">Resume</a></li>
       </ul>
-      <a href="#"><img src="file:///Users/JamesSalehi/Documents/Website/img/logo.png"></a>
-   </div>
-   </div>
+      <a href="#"><img src="img/logo.png"></a>
+     </div>
+    </div>
 
     <div class="jumbotron">
       <div class="container">
       <h1>Computer Science Student. <br> Learner, Thinker, Doer.</h1>
-      <a href="https://github.com/SirMrJames"><img src="file:///Users/JamesSalehi/Documents/Website/img/github.png"></a>
-      <a href="https://ca.linkedin.com/pub/james-salehi/77/75/99">
-      
-          <img src="file:///Users/JamesSalehi/Documents/Website/img/linkedin.png" alt="View James Salehi's profile on LinkedIn">
-        
-    </a>
+      <a href="https://github.com/SirMrJames"><img src="img/github.png"></a>
+      <a href="https://ca.linkedin.com/in/jamessalehi">
+          <img src="img/work.png"/>  
+      </a>
       </div>
-   </div>
-  </div>
-</div>
+    </div>
+
 
 
   <div class="main">
     <div class="container">
-      <h2> Current Projects. </h2>
-      <div class="row">
-        <div class="col-md-4">
-          <p> Website </p>
-          <img src="file:///Users/JamesSalehi/Documents/Website/img/website.png">
-        </div>
-        <div class="col-md-4">
-          <p> Javascript Project </p>
-          <img src="http://placehold.it/200x150">
-        </div>
-        <div class="col-md-4">
-          <p> jQuery Project </p>
-          <img src="http://placehold.it/200x150">
-        </div>
-      </div>
+      <div ng-view></div>
     </div>
+   </div>
   </div>
 
-  <div class="checker" ng-controller="HomeController">
-    <div class="container">
-    {{ helloWorld }}
-    </div>
-    </div>
 
   <div class="footer">
     <div class="container">
@@ -70,14 +48,42 @@
     </div>
   </div>
 
+    <!-- Vendors -->
+    <script type="text/javascript" src="js/vendor/angular.min.js"></script>
+    <script src ="https://code.angularjs.org/1.2.28/angular-route.min.js"></script>
+    <!-- Modules -->
+    <script type="application/javascript" src="js/app.js"></script>
+    <!-- Controllers -->
+    <script src="js/controllers/MainController.js"></script>
+    <script src="js/controllers/ProjectController.js"></script>
+    <!-- Services -->
+    <script src = "js/services/projects.js"></script>
 
-<!-- Modules -->
-<script type="text/javascript" src="file:///Users/JamesSalehi/Documents/Website/js/app.js"></script>
- 
-<!-- Controllers -->
-<script type="text/javascript" src="file:///Users/JamesSalehi/Documents/Website/js/controllers/HomeController.js"></script>
- 
-<!-- Services -->
-    
+    <!-- Views -->
+    <script type="text/ng-template" id="mainpage">
+     <h2> Current Projects. </h2>
+       <div class="row">
+
+        <div class="col-md-4" ng-repeat="project in projects.project">
+       <div class ="link">
+         <a href="#/{{$index}}">
+          <h3 class="name"> {{project.name}} </h3>
+          <img id="webimage" src="{{ project.image }}">
+        </a>
+</div>
+      </div>
+    </script>
+
+  <script type="text/ng-template" id="projectpage">
+      <h2> {{ project.name }} </h2>
+      <div class = "projects">
+      <p> Last Updated: {{ project.update | date}} </p>
+      <p> Info: {{ project.info }} </p>
+      <p> <a class ="link" href="{{project.link1}}"><span>{{project.extra}}</span></a></p>
+      <p> {{ project.github }} <a class="link" href="{{project.link2}}"> <img src="{{project.gitimage}}">
+       </a></p> 
+</div>
+  </script>
+
   </body>
 </html>
